@@ -82,7 +82,7 @@ def encodeString(string, key=0):
 
 # -------------------------------------------------------------------------
   
-def decodeString(string, key):
+def decodeString(string, key=0):
   
   lowerString = lambda x: x.lower()
   fixedString = lowerString(string)
@@ -142,6 +142,6 @@ def decodeString(string, key):
 
 # MainSetup ----------------------------------------------------------------
 
-print(encodeString("hello world", 5))
-print(decodeString("mjqqt btwqi", 5))
-print(decodeString("czggj rjmgy", 5))
+print(encodeString("exporavision innovation", 5))
+print(decodeString("jcutwfanxnts nsstafynts", 5))
+print(decodeString("zskjmvqdndji diijqvodji", 5))
