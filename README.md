@@ -5,4 +5,9 @@
 
 **Project Description:**
 
-For this final project, I have created a ceasar cipher {on Discord*} that can encode and decode using a key. The program will output a left-shift version, and a right-shift version of said key :D
+I have created a ceasar cipher {on Discord*} that can encode and decode using a key. The program will output a left-shift version, and a right-shift version of said key :D
+
+**Note:**
+
+.deepsource.toml is a file that allows the deepsource program to run, which is a
+code editor/suggestor provided for free by the github student developer pack
