@@ -40,7 +40,6 @@ async def encode_string(ctx, *string, key=0):
     key = int(string[-1])
   except ValueError:
     await ctx.reply("Invalid Key :(")
-    return
     
   # string to encode (discord.py automatically puts in tuple)
   string = [i for i in string]
@@ -119,7 +118,6 @@ async def decodeString(ctx, *string, key=0):
     key = int(string[-1])
   except ValueError:
     await ctx.reply("Invalid Key :(")
-    return
   
   # string to encode (discord.py automatically puts in tuple)
   string = [i for i in string]
