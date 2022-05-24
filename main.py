@@ -31,7 +31,7 @@ async def help(ctx):
   await ctx.send(f"""Hello <@{ctx.author.id}>! Please check your DMs for more info :D""")
 
 @bot.command(name = "encode")
-async def encode_string(ctx, *string, key="0"):
+async def encode_string(ctx, *string, key=0):
 
   # Use given input and interpret it so algorithm can digest
   # key should be the last element in the list. 
@@ -49,9 +49,6 @@ async def encode_string(ctx, *string, key="0"):
   # lambda is a one-liner function :)
   lowerString = lambda x: x.lower() 
   fixedString = lowerString(string)
-  
-  if key == 0:
-    return "Working on empty param"
 
   # Right Shift -------------------------------------------------------------
   encodeCharR = ""
