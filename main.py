@@ -179,7 +179,7 @@ async def decodeString(ctx, *string, key=0):
 
       # To account for spaces and special characters in the string
       elif char in specialChar:
-        decodeCharL += char
+        decodeCharR += char
         break
   
   await ctx.send(f"**Orginal Text (For Decode):** {string}\n")
