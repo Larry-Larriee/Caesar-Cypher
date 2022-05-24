@@ -12,6 +12,7 @@ shift the alphabet either left OR right.
 
 from larryTools import alphabet
 from larryTools import help_me
+from larryTools import specialChar
 import os 
 import asyncio
 from discord.ext import commands
@@ -30,7 +31,7 @@ async def help(ctx):
   await ctx.author.send(help_me)
   await ctx.send(f"""Hello <@{ctx.author.id}>! Please check your DMs for more info :D""")
 
-@bot.command(name = ["encode", "Encode"])
+@bot.command(aliases = ["encode", "Encode"])
 async def encode_string(ctx, *string, key=0):
 
   # Use given input and interpret it so algorithm can digest
@@ -64,13 +65,10 @@ async def encode_string(ctx, *string, key=0):
         encodeCharR += alphabet[j - key]
         break
     
-      # To account for spaces in the string
-      elif char == " ":
-        encodeCharR += " "
-        break
-
-      else:
+      # To account for spaces and special characters in the string
+      elif char in specialChar:
         encodeCharR += char
+        break
         
   # Left Shift --------------------------------------------------------------
   encodeCharL = ""
@@ -103,19 +101,16 @@ async def encode_string(ctx, *string, key=0):
         encodeCharL += leftAlphabet[j]
         break
 
-      # To account for spaces in the string
-      elif char == " ":
-        encodeCharL += " "
-        break
-
-      else:
+      # To account for spaces and special characters in the string
+      elif char in specialChar:
         encodeCharL += char
+        break
 
   await ctx.send(f"**Orginal Text (For Encode):** {string}\n")
   await asyncio.sleep(1)
   await ctx.send(f"**Left Shift:** {encodeCharL}\n**Right Shift:** {encodeCharR}")
 
-@bot.command(name = ["Decode", "decode"])
+@bot.command(aliases = ["Decode", "decode"])
 async def decodeString(ctx, *string, key=0):
 
   # Use given input and interpret it so algorithm can digest
@@ -145,13 +140,11 @@ async def decodeString(ctx, *string, key=0):
         # left-shift chipher 
         decodeCharL += alphabet[i - key]
         break
-
-      elif char == " ":
-        decodeCharL += " "
-        break
-
-      else:
+      
+      # To account for spaces and special characters in the string
+      elif char in specialChar:
         decodeCharL += char
+        break
         
   # Right Shift -------------------------------------------------------------
   decodeCharR = ""
@@ -184,12 +177,10 @@ async def decodeString(ctx, *string, key=0):
         decodeCharR += alphabet[j]
         break
 
-      elif char == " ":
-        decodeCharR += " "
+      # To account for spaces and special characters in the string
+      elif char in specialChar:
+        decodeCharL += char
         break
-      
-      else:
-        decodeCharR += char
   
   await ctx.send(f"**Orginal Text (For Decode):** {string}\n")
   await asyncio.sleep(1)

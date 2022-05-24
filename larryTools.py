@@ -18,3 +18,6 @@ To give you an idea of what this looks like:
 Output: Left Shift: **mjqqt**, Right Shift: **czggj**
 
 `Program written and debugged by Tyrone#1455 AKA Larry-Larriee`"""
+
+# Special Characters 
+specialChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "-", "+", "=", ",", ".", "/", "?", "<", ">", " "] 
