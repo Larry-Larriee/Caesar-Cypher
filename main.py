@@ -30,7 +30,7 @@ async def help(ctx):
   await ctx.author.send(help_me)
   await ctx.send(f"""Hello <@{ctx.author.id}>! Please check your DMs for more info :D""")
 
-@bot.command(name = "encode")
+@bot.command(name = ["encode", "Encode"])
 async def encode_string(ctx, *string, key=0):
 
   # Use given input and interpret it so algorithm can digest
@@ -68,6 +68,9 @@ async def encode_string(ctx, *string, key=0):
       elif char == " ":
         encodeCharR += " "
         break
+
+      else:
+        encodeCharR += char
         
   # Left Shift --------------------------------------------------------------
   encodeCharL = ""
@@ -105,11 +108,14 @@ async def encode_string(ctx, *string, key=0):
         encodeCharL += " "
         break
 
+      else:
+        encodeCharL += char
+
   await ctx.send(f"**Orginal Text (For Encode):** {string}\n")
   await asyncio.sleep(1)
   await ctx.send(f"**Left Shift:** {encodeCharL}\n**Right Shift:** {encodeCharR}")
 
-@bot.command(name = "decode")
+@bot.command(name = ["Decode", "decode"])
 async def decodeString(ctx, *string, key=0):
 
   # Use given input and interpret it so algorithm can digest
@@ -144,6 +150,9 @@ async def decodeString(ctx, *string, key=0):
         decodeCharL += " "
         break
 
+      else:
+        decodeCharL += char
+        
   # Right Shift -------------------------------------------------------------
   decodeCharR = ""
 
@@ -178,6 +187,9 @@ async def decodeString(ctx, *string, key=0):
       elif char == " ":
         decodeCharR += " "
         break
+      
+      else:
+        decodeCharR += char
   
   await ctx.send(f"**Orginal Text (For Decode):** {string}\n")
   await asyncio.sleep(1)
