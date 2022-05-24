@@ -10,11 +10,41 @@ shift the alphabet either left OR right.
 
 # Variables ----------------------------------------------------------------
 
-from alpha import alphabet
+from larryTools import alphabet
+from larryTools import help_me
+import os 
+import asyncio
+from discord.ext import commands
+
+TOKEN = os.environ["TOKEN"]
+bot = commands.Bot(command_prefix=["caesar ", "Caesar "])
 
 # Functions ----------------------------------------------------------------
 
-def encodeString(string, key=0):
+# Discord.py automatically adds a help function & this is to remove it
+bot.remove_command("help")
+
+# New implemented help command
+@bot.command(name = "help")
+async def help(ctx):
+  await ctx.author.send(help_me)
+  await ctx.send(f"""Hello <@{ctx.author.id}>! Please check your DMs for more info :D""")
+
+@bot.command(name = "encode")
+async def encode_string(ctx, *string, key="0"):
+
+  # Use given input and interpret it so algorithm can digest
+  # key should be the last element in the list. 
+  try:
+    key = int(string[-1])
+  except ValueError:
+    await ctx.reply("Invalid Key :(")
+    return
+    
+  # string to encode (discord.py automatically puts in tuple)
+  string = [i for i in string]
+  string.remove(str(key))
+  string = " ".join(string)
 
   # lambda is a one-liner function :)
   lowerString = lambda x: x.lower() 
@@ -78,11 +108,25 @@ def encodeString(string, key=0):
         encodeCharL += " "
         break
 
-  return f"Left Shift: {encodeCharL}\nRight Shift: {encodeCharR}\n"
+  await ctx.send(f"**Orginal Text (For Encode):** {string}\n")
+  await asyncio.sleep(1)
+  await ctx.send(f"**Left Shift:** {encodeCharL}\n**Right Shift:** {encodeCharR}")
 
-# -------------------------------------------------------------------------
+@bot.command(name = "decode")
+async def decodeString(ctx, *string, key=0):
+
+  # Use given input and interpret it so algorithm can digest
+  # key should be the last element in the list. 
+  try:
+    key = int(string[-1])
+  except ValueError:
+    await ctx.reply("Invalid Key :(")
+    return
   
-def decodeString(string, key):
+  # string to encode (discord.py automatically puts in tuple)
+  string = [i for i in string]
+  string.remove(str(key))
+  string = " ".join(string)
   
   lowerString = lambda x: x.lower()
   fixedString = lowerString(string)
@@ -138,10 +182,14 @@ def decodeString(string, key):
         decodeCharR += " "
         break
   
-  return f"Left Shift: {decodeCharL}\nRight Shift: {decodeCharR}\n"
-
+  await ctx.send(f"**Orginal Text (For Decode):** {string}\n")
+  await asyncio.sleep(1)
+  await ctx.send(f"**Left Shift:** {decodeCharL}\n**Right Shift:** {decodeCharR}")
+  
 # MainSetup ----------------------------------------------------------------
 
-print(encodeString("hello world", 5))
-print(decodeString("mjqqt btwqi", 5))
-print(decodeString("czggj rjmgy", 5))
+#print(encodeString("hello world", 5))
+#print(decodeString("mjqqt btwqi", 5))
+#print(decodeString("czggj rjmgy", 5))
+
+bot.run(TOKEN)
